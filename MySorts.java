@@ -1,7 +1,37 @@
 import java.util.Arrays;
 public class MySorts
 {
-	
+
+	public static int partition(int[] arr, int s, int e)
+	{
+		int x = arr[e];
+		int i = s - 1;
+		int tmp;
+		for(int j = s; j < e; j++)
+		{
+			if(arr[j] <= x)
+			{
+				i++;
+				tmp = arr[j];
+				arr[j] = arr[i];
+				arr[i] = tmp;
+			}
+		}
+		tmp = arr[i + 1];
+	 	arr[i+1]= arr[e];
+		arr[e] = tmp;
+		return i+1;
+	}
+	public static int[] quickSort(int[] arr, int s, int e)
+	{
+		if(s < e)
+		{
+			int q = partition(arr, s, e);
+			quickSort(arr, s, q - 1);
+			quickSort(arr, q, e);
+		}
+		return arr;
+	}	
 	public static int[] insertionSort(int[] arr)
 	{
 		for(int i = 1; i < arr.length; i++)
@@ -24,14 +54,10 @@ public class MySorts
 		int ii = 0, ij = 0;
 		int[] a = new int[k - i + 2];
 		int[] b = new int[j - k+1];
-		System.arraycopy(arr, i,a,0, k -i + 1);
-		System.arraycopy(arr, k + 1,b,0, j - k);
 		
 		a[a.length - 1] = Integer.MAX_VALUE;
 	  b[b.length - 1] = Integer.MAX_VALUE;	
 	
-		System.out.println("a " + Arrays.toString(a));	
-		System.out.println("arr " + Arrays.toString(arr));	
 		for(int t = i; t <= j; t++)
 		{
 			if(a[ii] < b[ij])
@@ -83,7 +109,7 @@ public class MySorts
 	public static void main(String[] args)
 	{
 		int[] arr = new int[] {3,4,1, 8,2,42,3,6};
+		System.out.println(quickSort(arr, 0 , arr.length - 1));
 		System.out.println(Arrays.toString(arr));
-		System.out.println(Arrays.toString(mergeSort(arr, 0, arr.length - 1)));
 	}
 }
